@@ -13,6 +13,22 @@ Open this repository's Actions tab, select a successful **Build arm64 dylibs** r
 
 Use all three libraries from the same run, keeping their filenames. BUILD-INFO.txt records source, toolchain and SDK revisions, Xcode version and SHA-256 checksums. Check the run is successful; a workflow file alone is not evidence of a working build.
 
+## Check the IPA before installation
+
+For this initial installation, use **LinkedIn 9.1.555** (CFBundleShortVersionString). This is the exact upstream-tested marketing version, not a claim that other versions cannot work. Upstream does not specify a CFBundleVersion build number. Compatibility with newer LinkedIn releases is unverified.
+
+Your reported device is an iPhone 15 Pro on **iOS 26.7.3**. Upstream does not document testing this iOS version; the build SDK version does not establish device runtime compatibility.
+
+With Python 3 installed on Windows, download this repository's **tools/check_ipa.py**, then run locally:
+
+```powershell
+py -3 .\check_ipa.py "C:\Private\LinkedIn.ipa"
+```
+
+The tool reads the ZIP without extracting or changing it, prints version/build/minimum iOS, requires the original LinkedIn bundle ID and version 9.1.555, and checks that a regular arm64 main executable is unencrypted. It handles binary and XML Info.plist files. It makes no network requests. A mismatch exits with STOP; do not bypass that gate for the initial baseline.
+
+This is the simplest pre-installation input check. It cannot prove IPA authenticity, that every embedded framework is decrypted, private class compatibility, or successful login on iOS 26.7.3. Those require the short device checks below. If the IPA reports a newer version, keep it local and obtain your own legally available 9.1.555 baseline before proceeding.
+
 ## Inject, sign and install locally
 
 1. Install the current Windows release from [Sideloadly's official site](https://sideloadly.io/). Follow its Windows prerequisites: the web versions of iTunes and iCloud linked there, rather than the Microsoft Store versions.
