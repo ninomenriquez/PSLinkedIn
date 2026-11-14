@@ -19,6 +19,9 @@ Sister projects: [PSInstagram](https://github.com/pstepanovum/PSInstagram), [PSY
 Hold **four fingers** anywhere on the screen for a second.
 
 ## Installing
+
+**Windows + GitHub Actions:** see the [Windows installation guide](docs/WINDOWS.md) to download arm64 libraries and inject/sign locally with Sideloadly. The workflow never needs your LinkedIn IPA or Apple credentials.
+
 PSLinkedIn is sideloaded: you inject it into a decrypted LinkedIn IPA and sign that with your own certificate. It gets its own bundle ID (`com.pstepanovum.pslinkedin`), so it installs next to the official LinkedIn app.
 
 ### Prerequisites
