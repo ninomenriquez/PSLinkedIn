@@ -57,7 +57,7 @@ jobs:
           set -euo pipefail
           mkdir -p artifacts
           for name in PSLinkedIn FLEXing libFLEX; do
-            path="$(find .theos/obj modules/FLEXing/.theos/obj modules/FLEXing/libflex/.theos/obj -type f -name "$name.dylib" | head -1)"
+            path="$(find .theos/obj modules/FLEXing/.theos/obj -type f -name "$name.dylib" ! -path "*/arm64/*" -print -quit)"
             test -n "$path"
             test "$(xcrun lipo -archs "$path")" = arm64
             cp "$path" "artifacts/$name.dylib"
