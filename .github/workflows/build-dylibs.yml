@@ -8,6 +8,7 @@ on:
       - 'src/**'
       - 'modules/**'
       - '.gitmodules'
+      - 'tools/**'
   workflow_dispatch:
 permissions:
   contents: read
@@ -28,6 +29,8 @@ jobs:
         with:
           submodules: recursive
           persist-credentials: false
+      - name: Test local IPA preflight with synthetic data
+        run: python3 -m unittest discover -s tools -p 'test_*.py' -v
       - name: Set up Theos and iOS 16.2 SDK
         run: |
           set -euo pipefail
